@@ -57,6 +57,14 @@
         {bits: "0", name: "commit", desc: "commit configuration"}
       ]
     },
+    { name: "BYPASS_EN",
+      desc: "Enable higher 1GiB bypass",
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        {bits: "0", name: "commit", desc: "enable higher 1GiB bypass"}
+      ]
+    },
     {skipto: "0x18"}
     { name: "FLUSHED_LOW",
       desc: "Flushed Flag (lower 32 bit)",

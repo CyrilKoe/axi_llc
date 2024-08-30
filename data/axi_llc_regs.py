@@ -81,6 +81,14 @@ with open('data/axi_llc_regs.hjson', 'w') as f:
         {bits: "0", name: "commit", desc: "commit configuration"}\n\
       ]\n\
     },\n\
+    { name: "BYPASS_EN",\n\
+      desc: "Enable higher 1GiB bypass",\n\
+      swaccess: "rw",\n\
+      hwaccess: "hro",\n\
+      fields: [\n\
+        {bits: "0", name: "commit", desc: "enable higher 1GiB bypass"}\n\
+      ]\n\
+    },\n\
     {skipto: "0x18"}')
 
     f.write(f'''

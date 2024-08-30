@@ -32,6 +32,10 @@ extern "C" {
 #define AXI_LLC_COMMIT_CFG_REG_OFFSET 0x10
 #define AXI_LLC_COMMIT_CFG_COMMIT_BIT 0
 
+// Enable higher 1GiB bypass
+#define AXI_LLC_BYPASS_EN_REG_OFFSET 0x14
+#define AXI_LLC_BYPASS_EN_COMMIT_BIT 0
+
 // Flushed Flag (lower 32 bit)
 #define AXI_LLC_FLUSHED_LOW_REG_OFFSET 0x18
 

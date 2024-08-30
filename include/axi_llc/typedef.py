@@ -67,7 +67,6 @@ with open('include/axi_llc/typedef.svh', 'w') as f:
     logic       cfg_flush_en;                                           \\\n\
     logic       commit_cfg;                                             \\\n\
     logic       commit_cfg_en;                                          \\\n")
-
     if CachePartition != 0: 
         f.write("\
     logic       commit_partition_cfg;                                   \\\n\
@@ -116,7 +115,8 @@ with open('include/axi_llc/typedef.svh', 'w') as f:
   typedef struct packed {                                               \\\n\
     set_asso_t  cfg_spm;                                                \\\n\
     set_asso_t  cfg_flush;                                              \\\n\
-    logic       commit_cfg;                                             \\\n")
+    logic       commit_cfg;                                             \\\n\
+    logic       bypass_enable;                                          \\\n")
 
     if CachePartition != 0: 
         f.write("    logic       commit_partition_cfg;                                   \\\n")

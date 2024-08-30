@@ -80,6 +80,7 @@
     set_asso_t  cfg_spm;                                                \
     set_asso_t  cfg_flush;                                              \
     logic       commit_cfg;                                             \
+    logic       bypass_enable;                                          \
     logic       commit_partition_cfg;                                   \
     set_asso_t  flushed;                                                \
     reg_data_t  cfg_flush_partition;                                    \
