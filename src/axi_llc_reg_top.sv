@@ -125,6 +125,9 @@ module axi_llc_reg_top #(
   logic [31:0] flushed_set_high_1_qs;
   logic [31:0] flushed_set_high_2_qs;
   logic [31:0] flushed_set_high_3_qs;
+  logic bypass_en_qs;
+  logic bypass_en_wd;
+  logic bypass_en_we;
 
   // Register instances
   // R[cfg_spm_low]: V(False)
@@ -1005,9 +1008,36 @@ module axi_llc_reg_top #(
   );
 
 
+  // R[bypass_en]: V(False)
+
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_bypass_en (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (bypass_en_we),
+    .wd     (bypass_en_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.bypass_en.q ),
+
+    // to register interface (read)
+    .qs     (bypass_en_qs)
+  );
 
 
-  logic [32:0] addr_hit;
+
+
+  logic [33:0] addr_hit;
   always_comb begin
     addr_hit = '0;
     addr_hit[ 0] = (reg_addr == AXI_LLC_CFG_SPM_LOW_OFFSET);
@@ -1043,6 +1073,7 @@ module axi_llc_reg_top #(
     addr_hit[30] = (reg_addr == AXI_LLC_FLUSHED_SET_HIGH_1_OFFSET);
     addr_hit[31] = (reg_addr == AXI_LLC_FLUSHED_SET_HIGH_2_OFFSET);
     addr_hit[32] = (reg_addr == AXI_LLC_FLUSHED_SET_HIGH_3_OFFSET);
+    addr_hit[33] = (reg_addr == AXI_LLC_BYPASS_EN_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -1082,7 +1113,8 @@ module axi_llc_reg_top #(
                (addr_hit[29] & (|(AXI_LLC_PERMIT[29] & ~reg_be))) |
                (addr_hit[30] & (|(AXI_LLC_PERMIT[30] & ~reg_be))) |
                (addr_hit[31] & (|(AXI_LLC_PERMIT[31] & ~reg_be))) |
-               (addr_hit[32] & (|(AXI_LLC_PERMIT[32] & ~reg_be)))));
+               (addr_hit[32] & (|(AXI_LLC_PERMIT[32] & ~reg_be))) |
+               (addr_hit[33] & (|(AXI_LLC_PERMIT[33] & ~reg_be)))));
   end
 
   assign cfg_spm_low_we = addr_hit[0] & reg_we & !reg_error;
@@ -1120,6 +1152,9 @@ module axi_llc_reg_top #(
 
   assign commit_partition_cfg_we = addr_hit[24] & reg_we & !reg_error;
   assign commit_partition_cfg_wd = reg_wdata[0];
+
+  assign bypass_en_we = addr_hit[33] & reg_we & !reg_error;
+  assign bypass_en_wd = reg_wdata[0];
 
   // Read data return
   always_comb begin
@@ -1255,6 +1290,10 @@ module axi_llc_reg_top #(
 
       addr_hit[32]: begin
         reg_rdata_next[31:0] = flushed_set_high_3_qs;
+      end
+
+      addr_hit[33]: begin
+        reg_rdata_next[0] = bypass_en_qs;
       end
 
       default: begin

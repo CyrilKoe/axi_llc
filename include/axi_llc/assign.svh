@@ -56,6 +56,7 @@
     assign q_struct.cfg_spm = {regbus.cfg_spm_high.q, regbus.cfg_spm_low.q};        \
     assign q_struct.cfg_flush = {regbus.cfg_flush_high.q, regbus.cfg_flush_low.q};  \
     assign q_struct.commit_cfg = regbus.commit_cfg.q;                               \
+    assign q_struct.bypass_enable = regbus.bypass_en.q;                             \
     assign q_struct.commit_partition_cfg = regbus.commit_partition_cfg.q;           \
     assign q_struct.flushed = {regbus.flushed_high.q, regbus.flushed_low.q};        \
     assign q_struct.flushed_set[0] = {regbus.flushed_set_high[0].q, regbus.flushed_set_low[0].q}; \

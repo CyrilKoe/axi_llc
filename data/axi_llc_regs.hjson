@@ -230,6 +230,15 @@
       fields: [
         {bits: "31:0", name: "high", desc: "upper 32 bit"}
       ]
-    }}
+    }},
+    {skipto: "0xc0"}
+    { name: "BYPASS_EN",
+      desc: "Enable higher 1GiB bypass",
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        {bits: "0", name: "commit", desc: "enable higher 1GiB bypass"}
+      ]
+    }
   ]
 }

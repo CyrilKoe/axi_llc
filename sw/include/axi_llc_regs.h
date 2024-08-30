@@ -140,6 +140,10 @@ extern "C" {
 // Index-based Flushed Flag (upper 32 bit)
 #define AXI_LLC_FLUSHED_SET_HIGH_3_REG_OFFSET 0x88
 
+// Enable higher 1GiB bypass
+#define AXI_LLC_BYPASS_EN_REG_OFFSET 0xc0
+#define AXI_LLC_BYPASS_EN_COMMIT_BIT 0
+
 #ifdef __cplusplus
 }  // extern "C"
 #endif

@@ -95,7 +95,8 @@ with open('include/axi_llc/assign.svh', 'w') as f:
 `define AXI_LLC_ASSIGN_REGS_Q_FROM_REGBUS(q_struct, regbus)                         \\\n\
     assign q_struct.cfg_spm = {regbus.cfg_spm_high.q, regbus.cfg_spm_low.q};        \\\n\
     assign q_struct.cfg_flush = {regbus.cfg_flush_high.q, regbus.cfg_flush_low.q};  \\\n\
-    assign q_struct.commit_cfg = regbus.commit_cfg.q;                               \\\n")
+    assign q_struct.commit_cfg = regbus.commit_cfg.q;                               \\\n\
+    assign q_struct.bypass_enable = regbus.bypass_en.q;                             \\\n")
 
     if CachePartition != 0: 
         f.write("    assign q_struct.commit_partition_cfg = regbus.commit_partition_cfg.q;           \\\n")

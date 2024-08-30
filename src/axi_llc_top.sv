@@ -603,8 +603,8 @@ endgenerate
     .rst_ni          ( rst_ni                   ),
     .test_i          ( test_i                   ),
     .slv_req_i       ( to_demux_req             ),
-    .slv_aw_select_i ( slv_aw_bypass            ),
-    .slv_ar_select_i ( slv_ar_bypass            ),
+    .slv_aw_select_i ( slv_aw_bypass | (conf_regs_i.bypass_enable & ((to_demux_req.aw.addr >= 'hC000_0000) && (to_demux_req.aw.addr <= 'hFFFF_FFFF)))),
+    .slv_ar_select_i ( slv_ar_bypass | (conf_regs_i.bypass_enable & ((to_demux_req.ar.addr >= 'hC000_0000) && (to_demux_req.ar.addr <= 'hFFFF_FFFF)))),
     .slv_resp_o      ( to_demux_resp            ),
     .mst_reqs_o      ({bypass_req,  to_llc_req }),
     .mst_resps_i     ({bypass_resp, to_llc_resp})

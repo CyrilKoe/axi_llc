@@ -85,6 +85,7 @@
     reg_data_t  cfg_flush_partition;                                    \
     reg_data_t [1:0] cfg_set_partition;                                 \
     reg_data_t [3:0] flushed_set;                                       \
+    logic       bypass_enable;                                          \
   } cfg_regs_q_t;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

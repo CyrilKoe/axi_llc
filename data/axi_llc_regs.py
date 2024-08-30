@@ -273,7 +273,17 @@ with open('data/axi_llc_regs.hjson', 'w') as f:
         {{bits: "31:0", name: "high", desc: "upper 32 bit"}}
       ]
     }}}}''')
-            
+    f.write(f''',
+    {{skipto: "0xc0"}}
+    {{ name: "BYPASS_EN",
+      desc: "Enable higher 1GiB bypass",
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        {{bits: "0", name: "commit", desc: "enable higher 1GiB bypass"}}
+      ]
+    }}''')
+
     f.write('\n')
 
     f.write('  ]\n}\n')

@@ -133,6 +133,8 @@ with open('include/axi_llc/typedef.svh', 'w') as f:
         f.write(f'''    reg_data_t [{num_setflushreg-1}:0] flushed_set;                                       \\
 ''')
 
+    f.write("\
+    logic       bypass_enable;                                          \\\n")
     f.write("  } cfg_regs_q_t;\n\
 \n\
 ////////////////////////////////////////////////////////////////////////////////////////////////////\n\
